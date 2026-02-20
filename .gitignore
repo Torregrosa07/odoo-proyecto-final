@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Odoo
+*.log
+.odoo_module_installed
+
+# Entorno
+.env
+
+# OS
+.DS_Store
+Thumbs.db
