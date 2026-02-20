@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_bathroom_request_list" model="ir.ui.view">
+        <field name="name">bathroom.request.list</field>
+        <field name="model">bathroom.request</field>
+        <field name="arch" type="xml">
+            <list string="Solicitudes" decoration-danger="state == 'delayed'"
+                                       decoration-success="state == 'returned'"
+                                       decoration-info="state == 'active'">
+                <field name="student_name"/>
+                <field name="course"/>
+                <field name="key_id"/>
+                <field name="time_out"/>
+                <field name="time_in"/>
+                <field name="duration"/>
+                <field name="state"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_bathroom_request_form" model="ir.ui.view">
+        <field name="name">bathroom.request.form</field>
+        <field name="model">bathroom.request</field>
+        <field name="arch" type="xml">
+            <form string="Solicitud de baño">
+                <header>
+                    <button name="action_deliver_key" string="Entregar llave"
+                            type="object" class="btn-primary"
+                            invisible="state != 'active'"/>
+                    <button name="action_return_key" string="Devolver llave"
+                            type="object" class="btn-success"
+                            invisible="state != 'active'"/>
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="active,returned,delayed"/>
+                </header>
+                <sheet>
+                    <group string="Datos del alumno">
+                        <field name="student_name"/>
+                        <field name="course"/>
+                        <field name="key_id"/>
+                    </group>
+                    <group string="Registro de tiempo">
+                        <field name="time_out"/>
+                        <field name="time_in"/>
+                        <field name="duration"/>
+                    </group>
+                    <group string="Observaciones">
+                        <field name="notes" nolabel="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bathroom_request_graph" model="ir.ui.view">
+        <field name="name">bathroom.request.graph</field>
+        <field name="model">bathroom.request</field>
+        <field name="arch" type="xml">
+            <graph string="Uso del baño" type="bar">
+                <field name="course"/>
+                <field name="duration" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_bathroom_request" model="ir.actions.act_window">
+        <field name="name">Solicitudes</field>
+        <field name="res_model">bathroom.request</field>
+        <field name="view_mode">list,form,graph</field>
+    </record>
+
+</odoo>

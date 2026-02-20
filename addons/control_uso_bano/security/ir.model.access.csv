@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_bathroom_request,access_bathroom_request,model_bathroom_request,,1,1,1,1
+access_bathroom_key,access_bathroom_key,model_bathroom_key,,1,1,1,1
