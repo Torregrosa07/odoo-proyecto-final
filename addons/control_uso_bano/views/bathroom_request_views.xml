@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- Vista listado (tree) de solicitudes con colores por estado -->
     <record id="view_bathroom_request_list" model="ir.ui.view">
         <field name="name">bathroom.request.list</field>
         <field name="model">bathroom.request</field>
         <field name="arch" type="xml">
+            <!-- Decoraciones: rojo=retrasado, verde=devuelto, azul=activo -->
             <tree string="Solicitudes" decoration-danger="state == 'delayed'"
                                        decoration-success="state == 'returned'"
                                        decoration-info="state == 'active'">
@@ -19,18 +21,22 @@
         </field>
     </record>
 
+    <!-- Vista formulario de solicitud con botones de acción -->
     <record id="view_bathroom_request_form" model="ir.ui.view">
         <field name="name">bathroom.request.form</field>
         <field name="model">bathroom.request</field>
         <field name="arch" type="xml">
             <form string="Solicitud de baño">
                 <header>
+                    <!-- Botón para registrar la entrega de la llave al alumno -->
                     <button name="action_deliver_key" string="Entregar llave"
                             type="object" class="btn-primary"
                             invisible="state != 'active'"/>
+                    <!-- Botón para registrar la devolución de la llave -->
                     <button name="action_return_key" string="Devolver llave"
                             type="object" class="btn-success"
                             invisible="state != 'active'"/>
+                    <!-- Barra de estado visual del flujo -->
                     <field name="state" widget="statusbar"
                            statusbar_visible="active,returned,delayed"/>
                 </header>

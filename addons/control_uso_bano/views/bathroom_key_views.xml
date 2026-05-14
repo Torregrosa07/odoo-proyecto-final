@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- Vista listado de llaves con color según disponibilidad -->
     <record id="view_bathroom_key_list" model="ir.ui.view">
         <field name="name">bathroom.key.list</field>
         <field name="model">bathroom.key</field>
         <field name="arch" type="xml">
             <tree string="Llaves">
                 <field name="name"/>
+                <!-- Verde si disponible, rojo si en uso -->
                 <field name="state" decoration-success="state == 'available'"
                                     decoration-danger="state == 'in_use'"/>
                 <field name="current_request_id"/>
@@ -14,6 +16,7 @@
         </field>
     </record>
 
+    <!-- Vista formulario de llave -->
     <record id="view_bathroom_key_form" model="ir.ui.view">
         <field name="name">bathroom.key.form</field>
         <field name="model">bathroom.key</field>
@@ -30,10 +33,11 @@
         </field>
     </record>
 
+    <!-- Acción que conecta el menú con las vistas de llaves -->
     <record id="action_bathroom_key" model="ir.actions.act_window">
-    <field name="name">Llaves</field>
-    <field name="res_model">bathroom.key</field>
-    <field name="view_mode">tree,form</field>
+        <field name="name">Llaves</field>
+        <field name="res_model">bathroom.key</field>
+        <field name="view_mode">tree,form</field>
     </record>
 
 </odoo>

@@ -1,34 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
+    <!-- Menú raíz del módulo (aparece en la barra superior de Odoo) -->
     <menuitem id="menu_bathroom_root"
               name="Control de Baños"
               sequence="10"/>
 
+    <!-- Submenú: gestión de solicitudes de uso -->
     <menuitem id="menu_bathroom_requests"
               name="Solicitudes"
               parent="menu_bathroom_root"
               action="action_bathroom_request"
               sequence="1"/>
 
+    <!-- Submenú: gestión de llaves del centro -->
     <menuitem id="menu_bathroom_keys"
               name="Llaves"
               parent="menu_bathroom_root"
               action="action_bathroom_key"
               sequence="2"/>
 
+    <!-- Submenú: gestión de alumnos -->
     <menuitem id="menu_bathroom_students"
               name="Alumnos"
               parent="menu_bathroom_root"
               action="action_bathroom_student"
               sequence="3"/>
 
+    <!-- Submenú: panel de control con estadísticas -->
     <menuitem id="menu_bathroom_dashboard"
               name="Panel de Control"
               parent="menu_bathroom_root"
               action="action_bathroom_dashboard"
               sequence="10"/>
 
+    <!-- Submenú: wizard de importación CSV -->
     <menuitem id="menu_bathroom_import"
               name="Importar Alumnos (CSV)"
               parent="menu_bathroom_root"
