@@ -17,4 +17,10 @@
               action="action_bathroom_key"
               sequence="2"/>
 
+    <menuitem id="menu_bathroom_students"
+              name="Alumnos"
+              parent="menu_bathroom_root"
+              action="action_bathroom_student"
+              sequence="3"/>
+
 </odoo>

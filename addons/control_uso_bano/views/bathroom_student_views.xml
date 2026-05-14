@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_bathroom_student_list" model="ir.ui.view">
+        <field name="name">bathroom.student.list</field>
+        <field name="model">bathroom.student</field>
+        <field name="arch" type="xml">
+            <tree string="Alumnos">
+                <field name="name"/>
+                <field name="course"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="total_requests"/>
+                <field name="average_duration" widget="float_time"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bathroom_student_form" model="ir.ui.view">
+        <field name="name">bathroom.student.form</field>
+        <field name="model">bathroom.student</field>
+        <field name="arch" type="xml">
+            <form string="Alumno">
+                <sheet>
+                    <group string="Datos del alumno">
+                        <field name="name"/>
+                        <field name="course"/>
+                        <field name="email"/>
+                        <field name="phone"/>
+                    </group>
+                    <group string="Estadísticas">
+                        <field name="total_requests"/>
+                        <field name="average_duration"/>
+                    </group>
+                    <notebook>
+                        <page string="Historial de solicitudes">
+                            <field name="request_ids">
+                                <tree readonly="1">
+                                    <field name="key_id"/>
+                                    <field name="time_out"/>
+                                    <field name="time_in"/>
+                                    <field name="duration"/>
+                                    <field name="state"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_bathroom_student_search" model="ir.ui.view">
+        <field name="name">bathroom.student.search</field>
+        <field name="model">bathroom.student</field>
+        <field name="arch" type="xml">
+            <search string="Buscar alumno">
+                <field name="name"/>
+                <field name="course"/>
+                <group expand="0" string="Agrupar por">
+                    <filter string="Curso" name="group_course" context="{'group_by': 'course'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_bathroom_student" model="ir.actions.act_window">
+        <field name="name">Alumnos</field>
+        <field name="res_model">bathroom.student</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

@@ -1,17 +1,26 @@
 from odoo import models, fields, api
 from odoo.exceptions import ValidationError
 
+
 class BathroomRequest(models.Model):
     _name = 'bathroom.request'
     _description = 'Solicitud de uso del baño'
     _order = 'time_out desc'
 
-    student_name = fields.Char(string='Nombre del alumno', required=True)
-    course = fields.Char(string='Curso', required=True)
+    student_id = fields.Many2one(
+        'bathroom.student', string='Alumno', required=True, ondelete='restrict'
+    )
+    course = fields.Char(
+        string='Curso', related='student_id.course', store=True, readonly=True
+    )
     key_id = fields.Many2one('bathroom.key', string='Llave', required=True)
-    time_out = fields.Datetime(string='Hora de salida', required=True)
+    time_out = fields.Datetime(
+        string='Hora de salida', default=fields.Datetime.now, required=True
+    )
     time_in = fields.Datetime(string='Hora de regreso')
-    duration = fields.Float(string='Duración (min)', compute='_compute_duration', store=True)
+    duration = fields.Float(
+        string='Duración (min)', compute='_compute_duration', store=True
+    )
     state = fields.Selection([
         ('active', 'Activo'),
         ('returned', 'Devuelto'),
@@ -53,3 +62,4 @@ class BathroomRequest(models.Model):
         for record in self:
             record.key_id.state = 'in_use'
             record.key_id.current_request_id = record.id
+            
