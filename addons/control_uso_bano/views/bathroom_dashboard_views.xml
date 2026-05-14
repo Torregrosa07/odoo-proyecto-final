@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Acción para solicitudes activas (KPI) -->
+    <record id="action_dashboard_active" model="ir.actions.act_window">
+        <field name="name">Solicitudes Activas</field>
+        <field name="res_model">bathroom.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'active')]</field>
+    </record>
+
+    <!-- Acción para solicitudes de hoy -->
+    <record id="action_dashboard_today" model="ir.actions.act_window">
+        <field name="name">Solicitudes de Hoy</field>
+        <field name="res_model">bathroom.request</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('time_out', '&gt;=', (context_today()).strftime('%Y-%m-%d 00:00:00'))]</field>
+    </record>
+
+    <!-- Acción para llaves en uso -->
+    <record id="action_dashboard_keys_in_use" model="ir.actions.act_window">
+        <field name="name">Llaves en Uso</field>
+        <field name="res_model">bathroom.key</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'in_use')]</field>
+    </record>
+
+    <!-- Acción para gráfico por curso -->
+    <record id="action_dashboard_graph_course" model="ir.actions.act_window">
+        <field name="name">Uso por Curso</field>
+        <field name="res_model">bathroom.request</field>
+        <field name="view_mode">graph</field>
+        <field name="context">{'graph_mode': 'bar'}</field>
+    </record>
+
+    <!-- Vista Kanban del Dashboard -->
+    <record id="view_bathroom_dashboard" model="ir.ui.view">
+        <field name="name">bathroom.dashboard</field>
+        <field name="model">bathroom.request</field>
+        <field name="priority">100</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_dashboard" create="false" edit="false">
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="o_kanban_card_content">
+                                <field name="student_id"/>
+                                <field name="key_id"/>
+                                <field name="time_out"/>
+                                <field name="state" widget="label_selection"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- Acción del panel de control -->
+    <record id="action_bathroom_dashboard" model="ir.actions.act_window">
+        <field name="name">Panel de Control</field>
+        <field name="res_model">bathroom.request</field>
+        <field name="view_mode">kanban,graph,pivot,tree</field>
+        <field name="domain">[('state', '=', 'active')]</field>
+        <field name="context">{'search_default_filter_active': 1}</field>
+        <field name="search_view_id" ref="view_bathroom_request_search"/>
+    </record>
+
+</odoo>

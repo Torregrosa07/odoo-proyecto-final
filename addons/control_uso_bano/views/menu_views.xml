@@ -23,4 +23,16 @@
               action="action_bathroom_student"
               sequence="3"/>
 
+    <menuitem id="menu_bathroom_dashboard"
+              name="Panel de Control"
+              parent="menu_bathroom_root"
+              action="action_bathroom_dashboard"
+              sequence="10"/>
+
+    <menuitem id="menu_bathroom_import"
+              name="Importar Alumnos (CSV)"
+              parent="menu_bathroom_root"
+              action="action_import_student_wizard"
+              sequence="20"/>
+
 </odoo>

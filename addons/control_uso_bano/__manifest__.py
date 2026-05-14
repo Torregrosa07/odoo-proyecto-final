@@ -7,10 +7,13 @@
     'depends': ['base'],
     'data': [
         'security/ir.model.access.csv',
+        'wizard/import_student_wizard_views.xml',
         'views/bathroom_student_views.xml',
         'views/bathroom_key_views.xml',
         'views/bathroom_request_views.xml',
+        'views/bathroom_dashboard_views.xml',
         'views/menu_views.xml',
+        'reports/bathroom_report.xml',
     ],
     'installable': True,
     'application': True,

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Definición del informe -->
+    <record id="action_report_bathroom_usage" model="ir.actions.report">
+        <field name="name">Informe de Uso del Baño</field>
+        <field name="model">bathroom.request</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">control_uso_bano.report_bathroom_usage</field>
+        <field name="report_file">control_uso_bano.report_bathroom_usage</field>
+        <field name="binding_model_id" ref="model_bathroom_request"/>
+        <field name="binding_type">report</field>
+    </record>
+
+    <!-- Plantilla QWeb del informe -->
+    <template id="report_bathroom_usage">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h2 style="text-align: center;">Informe de Uso del Baño</h2>
+                        <h4 style="text-align: center; color: #666;">
+                            IES Cañada de La Encina
+                        </h4>
+
+                        <br/>
+
+                        <table class="table table-bordered table-sm">
+                            <thead>
+                                <tr style="background-color: #875A7B; color: white;">
+                                    <th>Alumno</th>
+                                    <th>Curso</th>
+                                    <th>Llave</th>
+                                    <th>Hora Salida</th>
+                                    <th>Hora Regreso</th>
+                                    <th>Duración (min)</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><t t-esc="doc.student_id.name"/></td>
+                                    <td><t t-esc="doc.course"/></td>
+                                    <td><t t-esc="doc.key_id.name"/></td>
+                                    <td><t t-esc="doc.time_out" t-options="{'widget': 'datetime'}"/></td>
+                                    <td><t t-esc="doc.time_in" t-options="{'widget': 'datetime'}"/></td>
+                                    <td><t t-esc="'%.1f' % doc.duration"/></td>
+                                    <td>
+                                        <t t-if="doc.state == 'active'">Activo</t>
+                                        <t t-if="doc.state == 'returned'">Devuelto</t>
+                                        <t t-if="doc.state == 'delayed'">Retrasado</t>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <t t-if="doc.notes">
+                            <h5>Observaciones:</h5>
+                            <p><t t-esc="doc.notes"/></p>
+                        </t>
+
+                        <br/>
+                        <p style="font-size: 10px; color: #999;">
+                            Documento generado automáticamente por el módulo Control de Uso del Baño - Odoo
+                        </p>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>
